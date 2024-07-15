@@ -5,7 +5,7 @@ from random import shuffle
 from time import strftime
 import json
 
-def write_result_user_ids(result_ids, uni, faculty, chair, writing_mode):
+def write_result_user_ids(result_ids, uni, faculty, chair, writing_mode, university_year):
     formatted_user_ids = '\n'.join(f'https://vk.com/id{user_id}' for user_id in result_ids)
     cur_time_formatted = strftime('%d.%m.%Y, %H:%M:%S')
 
@@ -13,6 +13,7 @@ def write_result_user_ids(result_ids, uni, faculty, chair, writing_mode):
         file.write('-->#######################\n')
         file.write(f'[{cur_time_formatted}]\n')
         file.write(f'Университет: {uni}\n')
+        file.write(f'Год окончания обучения: {university_year}\n')
         file.write(f'Факультет: {faculty}\n')
         file.write(f'Кафедра: {chair}\n')
         file.write(f'Ссылки на профили (кол-во: {len(result_ids)}):\n\n')
@@ -60,7 +61,7 @@ def main():
         shuffle(result_ids)
         result_ids = result_ids[:remaining]
 
-    write_result_user_ids(result_ids, uni, faculty, chair, 'w' if write_file else 'a')
+    write_result_user_ids(result_ids, uni, faculty, chair, 'w' if write_file else 'a', university_year)
 
 
 if __name__ == '__main__':
