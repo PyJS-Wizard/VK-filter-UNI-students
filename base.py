@@ -36,14 +36,11 @@ def request_get(url) -> dict:
             print('Ошибка requests. Повторная попытка...')   
         except ErrorCodeException:
             error_code = result['error']['error_code']
-            
-            print(f'{error_codes.get(error_code, "Непредвиденная ошибка.")}', end=' ')
-            if error_code in (1, 5, 29) or error_code not in error_codes:
-                quit()
-            print('Повторная попытка...')
-    
+            if error_code in (1, 10, 29):
+                print('Произошла непредвиденная ошибка на сервере. Попробуйте повторить запрос позже.')
+                quit() 
         except Exception as e:
-            print(f'Сторонняя ошибка: {e}')
+            print(f'Произошла сторонняя ошибка: {e}.\nПовторная попытка...')
         finally:
             if finished:
                 break
@@ -53,7 +50,7 @@ def request_get(url) -> dict:
             delay = delay * 2 + uniform(0, 1)
 
             if delay > max_request_delay:
-                print(f'Превышено ограничение длительности запроса.')
+                print(f'Запрос выполнялся слишком долго. Попробуйте повторить запрос позже.')
                 quit()
             
 
@@ -67,12 +64,3 @@ base_beg = 'https://api.vk.com/method'
 base_end_adv = f'access_token={access_token_adv}&v=5.124'
 
 max_request_delay = 30
-
-error_codes = {
-    1: 'Произошла неизвестная ошибка. Попробуйте повторить запрос позже.',
-    5: 'Авторизация пользователя не удалась. Попробуйте обновить ваш токен пользователя.',
-    6: 'Слишком много запросов в секунду.',
-    9: 'Слишком много однотипных действий.',
-    10: 'Произошла внутренняя ошибка сервера.',
-    29: 'Достигнут количественный лимит на вызов метода.'
-}
