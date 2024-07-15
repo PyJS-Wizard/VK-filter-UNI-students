@@ -21,6 +21,12 @@ def write_result_user_ids(result_ids, uni, faculty, chair, writing_mode, univers
         file.write('<--#######################\n\n\n')
 
     clear_console()
+
+    print(f'[ВУЗ: {uni}]')
+    print(f'[Год окончания обучения: {university_year}]')
+    print(f'[Факультет: {faculty}]')
+    print(f'[Кафедра: {chair}]\n')
+
     print('*\nСписок идентификаторов студентов добавлен в файл "result_user_ids.txt".\n*')
     input()
     return
@@ -44,7 +50,7 @@ def main():
 
     university_year = get_input_int_in_range('Введите год окончания обучения студентов: ', 1946, 2031)
 
-    result_uni = user_search_uni(unis, university_year, include_all)
+    result_uni = user_search_uni(unis, university_year, include_all, university)
     
     if isinstance(result_uni, str):
         print(f'*\n{result_uni}\n*')
@@ -53,7 +59,13 @@ def main():
     
     result_ids, uni, faculty, chair = result_uni
     
+    print(f'[ВУЗ: {uni}]')
+    print(f'[Год окончания обучения: {university_year}]')
+    print(f'[Факультет: {faculty}]')
+    print(f'[Кафедра: {chair}]\n')
+
     print(f'Вот список идентификаторов найденных студентов (кол-во: {len(result_ids)}):\n{result_ids}')
+
     remaining = get_input_int_in_range('\nСколько из них вы хотите оставить в конечном результате?\n'
                 f'Программа в случайном порядке определит, кого оставить (0 - оставить всех): ', 0, len(result_ids))
     

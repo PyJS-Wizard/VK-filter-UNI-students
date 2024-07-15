@@ -1,11 +1,15 @@
 from base import base_beg, base_end_adv, clear_console, get_input_int_in_range, request_get
 from database import database_get
 
-def user_search_uni(unis: list[tuple[int, str]], university_year: int, include_all: bool):
+def user_search_uni(unis: list[tuple[int, str]], university_year: int, include_all: bool,
+                uni_input: str, ):
     clear_console()
     
+    print(f'[Запрос: {uni_input}]')
+    print(f'[Год окончания обучения: {university_year}]\n')
+
     print('\n'.join(f'{i}) {uni[1]}' for i, uni in enumerate(unis, start=1)))
-    get_index_exact_uni = get_input_int_in_range(f'Введите номер нужного вуза: ', 1, len(unis))
+    get_index_exact_uni = get_input_int_in_range(f'Введите номер нужного ВУЗа: ', 1, len(unis))
 
     clear_console()
 
@@ -14,9 +18,12 @@ def user_search_uni(unis: list[tuple[int, str]], university_year: int, include_a
     if not faculties:
         return 'Факультеты не найдены.'
     
+    print(f'[ВУЗ: {exact_uni_title}]')
+    print(f'[Год окончания обучения: {university_year}]\n')
+
     print('\n'.join(f'{i}) {faculty[1]}' for i, faculty in enumerate(faculties, start=1)))
     
-    get_index_exact_faculty = get_input_int_in_range(f'Введите номер нужного факультета: ', 1, len(faculties))
+    get_index_exact_faculty = get_input_int_in_range('Введите номер нужного факультета: ', 1, len(faculties))
     
     clear_console()
     
@@ -26,8 +33,12 @@ def user_search_uni(unis: list[tuple[int, str]], university_year: int, include_a
     if not chairs:
         return 'Кафедры не найдены.'
     
+    print(f'[ВУЗ: {exact_uni_title}]')
+    print(f'[Год окончания обучения: {university_year}]')
+    print(f'[Факультет: {exact_faculty_title}]\n')
+
     print('\n'.join(f'{i}) {chair[1]}' for i, chair in enumerate(chairs, start=1)))
-    get_index_exact_chair = get_input_int_in_range(f'Введите номер нужной кафедры (0 - любая кафедра): ', 0, len(chairs))
+    get_index_exact_chair = get_input_int_in_range('Введите номер нужной кафедры (0 - любая кафедра): ', 0, len(chairs))
     
     clear_console()
 
