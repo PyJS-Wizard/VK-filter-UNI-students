@@ -64,3 +64,5 @@ base_beg = 'https://api.vk.com/method'
 base_end_adv = f'access_token={access_token_adv}&v=5.124'
 
 max_request_delay = 30
+
+config_flags_dict = {'include_all': False, 'write_files': False}

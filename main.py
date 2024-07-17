@@ -1,5 +1,5 @@
 from user import user_search_uni
-from base import get_input_int_in_range, clear_console
+from base import get_input_int_in_range, clear_console, config_flags_dict
 from database import database_get
 from random import shuffle
 from time import strftime
@@ -33,7 +33,6 @@ def write_result_user_ids(result_ids, uni, faculty, chair, writing_mode, univers
 
     
 def main(): 
-
     try:
         with open('config_flags.json') as file:
             config_flags = json.loads(file.read())
@@ -41,7 +40,11 @@ def main():
             write_file = config_flags.get('write_file', False)
     except json.decoder.JSONDecodeError:
         include_all = write_file = False
-        
+    except FileNotFoundError:
+        with open('config_flags.json', 'w') as file:
+            file.write(json.dumps(config_flags_dict))
+            include_all = write_file = False
+
     clear_console()
     
     university = input('Введите название университета: ')
